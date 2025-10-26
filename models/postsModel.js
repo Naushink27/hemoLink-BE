@@ -5,11 +5,11 @@ const postSchema = new mongoose.Schema({
     Author:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"User",
-    required:true,
+   
     },
     content:{
     type:String,
-    required:true,
+   
     },
     imageUrl:String,
     createdAt:{

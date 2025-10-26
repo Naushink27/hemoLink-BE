@@ -3,20 +3,25 @@ import cors from "cors";
 import { configDotenv } from "dotenv";
 import connectDB from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
+import donorRoutes from "./routes/donorRoutes.js";
+import cookieParser from "cookie-parser";
 
 configDotenv();
 
 const app = express();
 
 // Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+
 
 // Connect DB
 connectDB();
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/donors", donorRoutes);
 
 // Default route
 app.get("/", (req, res) => {
