@@ -104,13 +104,12 @@ router.post("/interested/:requestId", verifyToken, isDonor, async (req, res) => 
     const { requestId } = req.params;
     const { donorName, email, phone, bloodGroup, address, description } = req.body;
 
-    // ✅ 1. Find the donation request
+   
     const donationRequest = await DonationRequest.findById(requestId);
     if (!donationRequest) {
       return res.status(404).json({ message: "Donation request not found" });
     }
 
-    // ✅ 2. Find the patient who created the request
     const patient = await User.findById(donationRequest.requester);
     if (!patient) {
       return res.status(404).json({ message: "Patient not found" });
@@ -120,7 +119,8 @@ router.post("/interested/:requestId", verifyToken, isDonor, async (req, res) => 
     console.log("Patient Email:", patientEmail);
     console.log("Email:", process.env.EMAIL_USER);
     console.log("Pass:", process.env.EMAIL_PASS);
-    // ✅ 3. Setup nodemailer transporter
+   
+
     const transporter = nodemailer.createTransport({
       host: 'gmail',
      
@@ -130,7 +130,7 @@ router.post("/interested/:requestId", verifyToken, isDonor, async (req, res) => 
       },
     });
 
-    // ✅ 4. Mail structure
+
     const mailOptions = {
       from: `"HemoLink 🩸" <${process.env.EMAIL_USER}>`,
       to: patientEmail,
@@ -151,7 +151,7 @@ router.post("/interested/:requestId", verifyToken, isDonor, async (req, res) => 
       `,
     };
 
-    // ✅ 5. Send email
+   
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({

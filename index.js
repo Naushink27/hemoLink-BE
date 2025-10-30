@@ -4,6 +4,7 @@ import { configDotenv } from "dotenv";
 import connectDB from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
 import donorRoutes from "./routes/donorRoutes.js";
+import patientRoutes from "./routes/patientRoutes.js";
 import cookieParser from "cookie-parser";
 
 configDotenv();
@@ -22,6 +23,7 @@ connectDB();
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/donors", donorRoutes);
+app.use("/api/patients",patientRoutes)
 
 // Default route
 app.get("/", (req, res) => {
