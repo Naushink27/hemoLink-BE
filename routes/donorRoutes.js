@@ -63,7 +63,7 @@ router.post('/posts', verifyToken, isDonor, async (req, res) => {
     });
 
     await newPost.save();
-    await newPost.populate("Author", "fullName email"); // optional
+    
     res.status(201).json(newPost);
   } catch (error) {
     res.status(500).json({ message: error.message });
